@@ -1,0 +1,25 @@
+[package]
+name = "showrss-to-magnet"
+version = "0.1.0"
+authors = ["Travis Jeffery <tj@travisjeffery.com>"]
+edition = "2018"
+
+[[bin]]
+name = "showrss-to-magnet"
+test = false
+bench = false
+path = "src/main.rs"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+clap = "2.33.3"
+quick-xml = { version = "0.20.0", features = [ "serialize" ] }
+serde = { version = "1.0", features = [ "derive" ] }
+reqwest = { version = "0.10.9", features = ["blocking"] }
+failure = "0.1.8"
+futures = "0.3.8"
+log = "0.4"
+env_logger = "0.8.2"
+
+

@@ -69,10 +69,13 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         .parse::<u64>()
         .unwrap();
     let interval = time::Duration::from_secs(i);
-    let xml = reqwest::blocking::get(url)?.text()?;
-    let rss: Rss = from_str(&xml)?;
 
-    info!("running with dst: {}, rss: {}", dst, url);
+    info!("config dst: {}, rss: {}", dst, url);
+
+    let xml = reqwest::blocking::get(url)?.text()?;
+    let rss: Rss = from_str(&xml).unwrap_or_else(|error| {
+        panic!("{:?}: {}", error, xml);
+    });
 
     loop {
         info!("fetching rss");

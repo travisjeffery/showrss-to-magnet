@@ -39,6 +39,7 @@ fn main() -> Result<(), Box<std::error::Error>> {
                 .long("dst")
                 .takes_value(true)
                 .default_value("/tmp")
+                .env("DST")
                 .help("Directory to write magnet files"),
         )
         .arg(
@@ -46,6 +47,7 @@ fn main() -> Result<(), Box<std::error::Error>> {
                 .short("r")
                 .long("rss")
                 .takes_value(true)
+                .env("RSS")
                 .help("showrss rss url"),
         )
         .arg(
@@ -54,6 +56,7 @@ fn main() -> Result<(), Box<std::error::Error>> {
                 .long("interval")
                 .default_value("5")
                 .takes_value(true)
+                .env("INTERVAL")
                 .help("interval to process rss in seconds"),
         )
         .get_matches();

@@ -1,11 +1,10 @@
-FROM rust:1.48 as builder
-
-WORKDIR /usr/src/showrss-to-magnet
+FROM clux/muslrust as builder
+WORKDIR /usr/src
 COPY . .
-RUN cargo install --path .
+RUN cargo build --release
 
 FROM scratch
-COPY --from=builder /usr/local/cargo/bin/showrss-to-magnet .
+COPY --from=builder /usr/src/target/x86_64-unknown-linux-musl/release/showrss-to-magnet /
 USER 1000
 ENV RUST_LOG=info
 ENV DST=/dst

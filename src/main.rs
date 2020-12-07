@@ -4,8 +4,7 @@ use quick_xml::de::from_str;
 use serde::Deserialize;
 use std::fs::File;
 use std::io::prelude::*;
-use std::io::{BufRead, BufReader};
-use std::path::{Path, PathBuf};
+use std::path::Path;
 use std::{str, thread, time};
 
 #[derive(Debug, Deserialize, PartialEq)]
@@ -26,7 +25,7 @@ struct Rss {
     channel: Channel,
 }
 
-fn main() -> Result<(), Box<std::error::Error>> {
+fn main() -> Result<(), Box<dyn std::error::Error>> {
     env_logger::init();
 
     let matches = App::new("showrss-to-magnet")
@@ -87,6 +86,4 @@ fn main() -> Result<(), Box<std::error::Error>> {
         }
         thread::sleep(interval);
     }
-
-    Ok(())
 }

@@ -71,14 +71,14 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     let interval = time::Duration::from_secs(i);
 
     info!("config dst: {}, rss: {}", dst, url);
-
-    let xml = reqwest::blocking::get(url)?.text()?;
-    let rss: Rss = from_str(&xml).unwrap_or_else(|error| {
-        panic!("{:?}: {}", error, xml);
-    });
-
+    
     loop {
         info!("fetching rss");
+        let xml = reqwest::blocking::get(url)?.text()?;
+        let rss: Rss = from_str(&xml).unwrap_or_else(|error| {
+            panic!("{:?}: {}", error, xml);
+        });
+
         for item in rss.channel.items.iter() {
             let path = dir.join(format!("{}.magnet", item.guid));
             if path.exists() {
